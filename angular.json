@@ -147,6 +147,150 @@
           }
         }
       }
+    },
+    "child": {
+      "projectType": "application",
+      "root": "apps/child",
+      "sourceRoot": "apps/child/src",
+      "prefix": "iframe-rx",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/child",
+            "index": "apps/child/src/index.html",
+            "main": "apps/child/src/main.ts",
+            "polyfills": "apps/child/src/polyfills.ts",
+            "tsConfig": "apps/child/tsconfig.app.json",
+            "inlineStyleLanguage": "less",
+            "assets": ["apps/child/src/favicon.ico", "apps/child/src/assets"],
+            "styles": ["apps/child/src/styles.less"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/child/src/environments/environment.ts",
+                  "with": "apps/child/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "port": 4201
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "child:build:production"
+            },
+            "development": {
+              "browserTarget": "child:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "child:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/child/src/**/*.ts",
+              "apps/child/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/child"],
+          "options": {
+            "jestConfig": "apps/child/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "child-e2e": {
+      "root": "apps/child-e2e",
+      "sourceRoot": "apps/child-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/child-e2e/cypress.json",
+            "tsConfig": "apps/child-e2e/tsconfig.e2e.json",
+            "devServerTarget": "child:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "child:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/child-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "rx-pm": {
+      "projectType": "library",
+      "root": "libs/rx-pm",
+      "sourceRoot": "libs/rx-pm/src",
+      "prefix": "iframe-rx",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/rx-pm"],
+          "options": {
+            "jestConfig": "libs/rx-pm/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/rx-pm/src/**/*.ts",
+              "libs/rx-pm/src/**/*.html"
+            ]
+          }
+        }
+      }
     }
   }
 }

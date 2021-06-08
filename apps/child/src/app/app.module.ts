@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AnotherService } from './another.service';
 
 import { AppComponent } from './app.component';
-import { ParentHubService } from './parent-hub.service';
+import { ChildClientService } from './child-client.service';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule],
-  providers: [ParentHubService, AnotherService],
+  providers: [ChildClientService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

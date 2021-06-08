@@ -25,6 +25,16 @@
     "parent-e2e": {
       "tags": [],
       "implicitDependencies": ["parent"]
+    },
+    "child": {
+      "tags": []
+    },
+    "child-e2e": {
+      "tags": [],
+      "implicitDependencies": ["child"]
+    },
+    "rx-pm": {
+      "tags": []
     }
   }
 }
